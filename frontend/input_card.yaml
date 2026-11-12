@@ -1,0 +1,42 @@
+# step5B 前端开发输入卡（step4 产出时生成；启动条件：5A 交付 OpenAPI + 种子库）
+step: 5B
+project: dev-metrics-dashboard
+updated_at: 2026-11-11
+sources:
+  - 04_任务拆解与开发规范.md
+  - 02_架构设计/第二轮技术架构设计文档.md
+  - 01_项目基线说明书.md
+  - _设计实施映射表.md
+  - 05_代码/backend/input_card.yaml
+arch_ref: 02_架构设计/第二轮技术架构设计文档.md
+tasks:
+  - {task_id: T16, desc: Vue3 工程骨架（Vite+TS+路由+布局+api client）, risk: 中, criterion_ref: C04}
+  - {task_id: T17, desc: 视图①项目×步骤热力图, risk: 中, criterion_ref: C04}
+  - {task_id: T18, desc: 视图②步骤返工 TOP 柱状图, risk: 中, criterion_ref: C04}
+  - {task_id: T19, desc: 视图③根因分布饼图, risk: 中, criterion_ref: C04}
+  - {task_id: T20, desc: 视图④门禁报红趋势折线图, risk: 中, criterion_ref: C04}
+  - {task_id: T21, desc: 视图⑤跨项目对比+逃逸矩阵覆盖率角标, risk: 高, criterion_ref: C04}
+  - {task_id: T22, desc: 覆盖范围角标组件（全量/增量/推断三级）, risk: 中, criterion_ref: C04}
+  - {task_id: T23, desc: 对账页（不一致+未解析清单表格）, risk: 中, criterion_ref: C05}
+  - {task_id: T27, desc: npm run build 产出 dist 供 8091 托管, risk: 低, criterion_ref: C07}
+mock_ref: 05_代码/backend/scripts/make_seed_db.py（5A 交付的可复现种子库；联调数据源）
+ports:
+  backend: 8091
+  frontend: 5184
+hardware_limit: RTX 2050 4GB / 16GB 内存；ECharts 默认主题+清晰排版（普通模式，不做设计精修）
+scope:
+  files_in_scope:
+    - 05_代码/frontend/**
+    - _设计实施映射表.md
+  out_of_scope:
+    - 05_代码/backend/**
+    - requirements.txt
+    - 01_项目基线说明书.md
+    - 02_架构设计/**
+    - 03_评审报告/**
+    - 04_任务拆解与开发规范.md
+    - docker-compose.yml.template
+limits:
+  max_files: 40
+  max_attempts: 3
+  timeout_min: 180

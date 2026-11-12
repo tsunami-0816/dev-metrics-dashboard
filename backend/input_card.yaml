@@ -1,0 +1,49 @@
+# step5A 后端开发输入卡（step4 产出时生成）
+step: 5A
+project: dev-metrics-dashboard
+updated_at: 2026-11-11
+sources:
+  - 04_任务拆解与开发规范.md
+  - 02_架构设计/第二轮技术架构设计文档.md
+  - 01_项目基线说明书.md
+  - _设计实施映射表.md
+arch_ref: 02_架构设计/第二轮技术架构设计文档.md
+tasks:
+  - {task_id: T01, desc: 项目遍历器（豁免模板/归档/队列）, risk: 低, criterion_ref: C01}
+  - {task_id: T02, desc: 版本嗅探器（表头列集判代际）, risk: 中, criterion_ref: C02}
+  - {task_id: T03, desc: 噪声规则集（4 条硬规则）, risk: 高, criterion_ref: C02}
+  - {task_id: T04, desc: 看板解析器 → step_status, risk: 中, criterion_ref: C01}
+  - {task_id: T05, desc: 失败日志解析器 → failures, risk: 中, criterion_ref: C01}
+  - {task_id: T06, desc: 台账解析器 → issues, risk: 高, criterion_ref: C01}
+  - {task_id: T07, desc: 度量台账解析器 → run_metrics, risk: 中, criterion_ref: C01}
+  - {task_id: T08, desc: 坏行跳过与 parse_anomalies 登记, risk: 中, criterion_ref: C01}
+  - {task_id: T09, desc: SQLite 建库与幂等重建, risk: 关键, criterion_ref: C01}
+  - {task_id: T10, desc: collect 统计输出 + collect_runs, risk: 低, criterion_ref: C02}
+  - {task_id: T11, desc: FastAPI 骨架+统一响应包+空库兜底+OpenAPI, risk: 关键}
+  - {task_id: T12, desc: /api/projects、/api/steps、/api/failures, risk: 中, criterion_ref: C03}
+  - {task_id: T13, desc: /api/metrics（逃逸矩阵降级口径+覆盖率）, risk: 高, criterion_ref: C03}
+  - {task_id: T14, desc: 对账引擎（A/B/C 三类勾稽）, risk: 高, criterion_ref: C05}
+  - {task_id: T15, desc: /api/reconcile 接口, risk: 中, criterion_ref: C05}
+  - {task_id: T24, desc: 解析器单测（真实夹具 cov≥80%）, risk: 中, criterion_ref: C06}
+  - {task_id: T25, desc: httpx 压测计时（P95<500ms）, risk: 低, criterion_ref: C03}
+  - {task_id: T26, desc: StaticFiles 托管+回环监听+端口（dist 就绪后）, risk: 关键, criterion_ref: C07}
+mock_policy: 无 Mock 层（数据源即本地真实产物）；交付 scripts/make_seed_db.py 生成可复现种子库供 5B 联调；任何临时硬编码返回必须带 "# MOCK:" 标记并登记映射表
+ports:
+  backend: 8091
+hardware_limit: RTX 2050 4GB / 16GB 内存，纯本地单进程，SQLite WAL 文件仓，外部服务 0 个（C07），仅 127.0.0.1 监听
+scope:
+  files_in_scope:
+    - 05_代码/backend/**
+    - requirements.txt
+    - _设计实施映射表.md
+  out_of_scope:
+    - 05_代码/frontend/**
+    - 01_项目基线说明书.md
+    - 02_架构设计/**
+    - 03_评审报告/**
+    - 04_任务拆解与开发规范.md
+    - docker-compose.yml.template
+limits:
+  max_files: 45
+  max_attempts: 3
+  timeout_min: 240
