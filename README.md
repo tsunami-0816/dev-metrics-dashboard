@@ -62,7 +62,7 @@ dev-metrics-dashboard/
 ```bash
 python -m venv .venv
 # Windows
-.venv\Scripts\pip install -r requirements.txt
+.venv/Scripts/pip install -r requirements.txt
 # macOS / Linux
 .venv/bin/pip install -r requirements.txt
 ```
